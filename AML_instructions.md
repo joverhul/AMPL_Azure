@@ -1,6 +1,8 @@
 # Azure Instructions
 This is instructions to run the ATOM Modeling PipeLine (AMPL) using Azure Machine Learning.  
 
+The input for this example can be found on [MODAC](https://modac.cancer.gov/assetDetails?dme_data_id=NCI-DME-MS01-106689321)
+
 ## Environment Setup
 
 Before beginning, an AML environment should be created. The enviornment should be created with the dockerfile provided. Adjust the dockerfile to match if you are creating a cpu or a cuda environment.
