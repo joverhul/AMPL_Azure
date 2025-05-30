@@ -1,7 +1,7 @@
 # Azure Instructions
 This is instructions to run the ATOM Modeling PipeLine (AMPL) using Azure Machine Learning.  
 
-The input for this example can be found on [MODAC](https://modac.cancer.gov/assetDetails?dme_data_id=NCI-DME-MS01-106689321)
+The input for this example can be found on [MODAC](https://modac.cancer.gov/assetDetails?dme_data_id=NCI-DME-MS01-106689321) or can be downloaded and curated using the [tutorials](https://github.com/ATOMScience-org/AMPL/tree/master/atomsci/ddm/examples/tutorials) and job submission described below.
 
 ## Environment Setup
 
