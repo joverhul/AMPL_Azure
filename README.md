@@ -2,6 +2,6 @@
 
 For further information, please visit the [AMPL GitHub](https://github.com/ATOMScience-org/AMPL).
 
-For instructions on how to use this on Azure Machine Learning, please see 
+For instructions on how to use this on Azure Machine Learning, please see AML_instructions.md.
 
 For the specific use case this is in reference to, download the document here.
