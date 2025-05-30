@@ -1,0 +1,360 @@
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": [
+        "!az login"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "\u001b[93mTo sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code B2DMPKKWK to authenticate.\u001b[0m\n\u001b[93mThe following tenants don't contain accessible subscriptions. Use `az login --allow-no-subscriptions` to have tenant level access.\u001b[0m\n\u001b[93m72f988bf-86f1-41af-91ab-2d7cd011db47 'Microsoft'\u001b[0m\n[\n  {\n    \"cloudName\": \"AzureCloud\",\n    \"homeTenantId\": \"14b77578-9773-42d5-8507-251ca2dc2b06\",\n    \"id\": \"c9b7bb83-3d11-4f71-9b1c-a744154ca8f9\",\n    \"isDefault\": true,\n    \"managedByTenants\": [],\n    \"name\": \"NIH.NHLBI.az.hop.dev\",\n    \"state\": \"Enabled\",\n    \"tenantDefaultDomain\": \"nih.onmicrosoft.com\",\n    \"tenantDisplayName\": \"National Institutes of Health\",\n    \"tenantId\": \"14b77578-9773-42d5-8507-251ca2dc2b06\",\n    \"user\": {\n      \"name\": \"overhulsejm@nih.gov\",\n      \"type\": \"user\"\n    }\n  }\n]\n"
+        }
+      ],
+      "execution_count": 3,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az extension add --name ml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "\u001b[K - Downloading ..\r\u001b[K - Installing ..\r"
+        }
+      ],
+      "execution_count": 3,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f qmugs-ampl.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nYour file exceeds 100 MB. If you experience low speeds, latency, or broken connections, we recommend using the AzCopyv10 tool for this file transfer.\n\nExample: azcopy copy '/mnt/batch/tasks/shared/LS_root/mounts/clusters/overhulsejm5/code/Users/overhulsejm/AMPL16/AMPL' 'https://naturalproduct4147943761.blob.core.windows.net/f8487174-84f9-4c22-a7bd-158e16a8baa9-uv015wxg27cbqnbdyxleo650xk/AMPL' \n\nSee https://docs.microsoft.com/azure/storage/common/storage-use-azcopy-v10 for more information.\n\u001b[32mUploading AMPL (468.42 MBs): 100%|█| 468417170/468417170 [00:04<00:00, 99147257.\u001b[0m\n\u001b[39m\n\n{\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/5f65637d-9900-40fa-b7ed-76e6dfc52c5c/versions/1\",\n  \"command\": \"./qmugs.sh ${{inputs.curated_qmug}} ${{outputs.odir}} ${{outputs.final}}\",\n  \"compute\": \"azureml:overhulse-1-gpu\",\n  \"creation_context\": {\n    \"created_at\": \"2024-08-20T06:32:02.990406+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\"\n  },\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\n  \"display_name\": \"qmug-rf-ecfp-scaffold-split\",\n  \"distribution\": {\n    \"process_count_per_instance\": 1,\n    \"type\": \"pytorch\"\n  },\n  \"environment\": \"azureml:ampl:6\",\n  \"environment_variables\": {},\n  \"experiment_name\": \"qmug-rf-ecfp-scaffold-split\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/jobs/red_sugar_pb1760h0n5\",\n  \"inputs\": {\n    \"curated_qmug\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:qmugs_curated_dataset:1\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"name\": \"red_sugar_pb1760h0n5\",\n  \"outputs\": {\n    \"default\": {\n      \"mode\": \"rw_mount\",\n      \"path\": \"azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.red_sugar_pb1760h0n5\",\n      \"type\": \"uri_folder\"\n    },\n    \"final\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    },\n    \"odir\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    }\n  },\n  \"parameters\": {},\n  \"properties\": {\n    \"ContentSnapshotId\": \"4be78ca1-f42d-42e8-bc52-745d4fc2af99\",\n    \"_azureml.ClusterName\": \"overhulse-1-gpu\",\n    \"_azureml.ComputeTargetType\": \"amlctrain\"\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1,\n    \"properties\": {},\n    \"shm_size\": \"2g\"\n  },\n  \"services\": {\n    \"Studio\": {\n      \"endpoint\": \"https://ml.azure.com/runs/red_sugar_pb1760h0n5?wsid=/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourcegroups/natural-product-gmd-jo/workspaces/naturalproductgmd&tid=14b77578-9773-42d5-8507-251ca2dc2b06\",\n      \"type\": \"Studio\"\n    },\n    \"Tracking\": {\n      \"endpoint\": \"azureml://eastus2.api.azureml.ms/mlflow/v1.0/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd?\",\n      \"type\": \"Tracking\"\n    }\n  },\n  \"status\": \"Starting\",\n  \"tags\": {},\n  \"type\": \"command\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f mchr1_split-train-previoussplit.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nYour file exceeds 100 MB. If you experience low speeds, latency, or broken connections, we recommend using the AzCopyv10 tool for this file transfer.\n\nExample: azcopy copy '/mnt/batch/tasks/shared/LS_root/mounts/clusters/overhulsejm5/code/Users/overhulsejm/AMPL16/AMPL' 'https://naturalproduct4147943761.blob.core.windows.net/f8487174-84f9-4c22-a7bd-158e16a8baa9-jolqxzw46p1oinr8bz67hc3jzo/AMPL' \n\nSee https://docs.microsoft.com/azure/storage/common/storage-use-azcopy-v10 for more information.\n\u001b[32mUploading AMPL (468.42 MBs): 100%|█| 468416447/468416447 [00:04<00:00, 101037537\u001b[0m\n\u001b[39m\n\n{\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/0cef70c2-902d-44c3-bfc6-ce5acaf444ad/versions/1\",\n  \"command\": \"./mchr1.sh ${{inputs.curated_dataset}} ${{outputs.odir}} ${{outputs.final}}\",\n  \"compute\": \"azureml:overhulse-1-gpu\",\n  \"creation_context\": {\n    \"created_at\": \"2024-08-14T06:59:15.276716+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\"\n  },\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\n  \"display_name\": \"mchr1-experiment\",\n  \"distribution\": {\n    \"process_count_per_instance\": 1,\n    \"type\": \"pytorch\"\n  },\n  \"environment\": \"azureml:ampl:6\",\n  \"environment_variables\": {},\n  \"experiment_name\": \"AMPL-jobsubmission\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/jobs/coral_hamster_5knjv02kpp\",\n  \"inputs\": {\n    \"curated_dataset\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:mchr1-scaffold-rdkit:1\",\n      \"type\": \"uri_folder\"\n    }\n  },\n  \"name\": \"coral_hamster_5knjv02kpp\",\n  \"outputs\": {\n    \"default\": {\n      \"mode\": \"rw_mount\",\n      \"path\": \"azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.coral_hamster_5knjv02kpp\",\n      \"type\": \"uri_folder\"\n    },\n    \"final\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    },\n    \"odir\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    }\n  },\n  \"parameters\": {},\n  \"properties\": {\n    \"ContentSnapshotId\": \"b95f18b9-8d8c-4ed3-87d7-8eea23615539\",\n    \"_azureml.ClusterName\": \"overhulse-1-gpu\",\n    \"_azureml.ComputeTargetType\": \"amlctrain\"\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1,\n    \"properties\": {},\n    \"shm_size\": \"2g\"\n  },\n  \"services\": {\n    \"Studio\": {\n      \"endpoint\": \"https://ml.azure.com/runs/coral_hamster_5knjv02kpp?wsid=/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourcegroups/natural-product-gmd-jo/workspaces/naturalproductgmd&tid=14b77578-9773-42d5-8507-251ca2dc2b06\",\n      \"type\": \"Studio\"\n    },\n    \"Tracking\": {\n      \"endpoint\": \"azureml://eastus2.api.azureml.ms/mlflow/v1.0/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd?\",\n      \"type\": \"Tracking\"\n    }\n  },\n  \"status\": \"Starting\",\n  \"tags\": {},\n  \"type\": \"command\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 24,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f regression_model.yaml"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f jobpreprocess.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\n\u001b[32mUploading src (26.94 MBs): 100%|█| 26935095/26935095 [00:03<00:00, 7281192.88it/\u001b[0m\n\u001b[39m\n\n{\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/ff55229e-8420-4158-9e7f-eef69139949f/versions/1\",\n  \"command\": \"./script-preprocess.sh ${{inputs.total_train}} ${{outputs.preprocessed_zinc_train}} ${{outputs.preprocessed_zinc}}\",\n  \"compute\": \"azureml:overhulsejm4\",\n  \"creation_context\": {\n    \"created_at\": \"2024-05-02T06:27:08.444449+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\"\n  },\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\n  \"display_name\": \"jtvaecpu_preprocess\",\n  \"environment\": \"azureml:CPU_JTVAE:1\",\n  \"environment_variables\": {},\n  \"experiment_name\": \"jtvaecpu_preprocess\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/jobs/upbeat_bee_pb76f3l9b1\",\n  \"inputs\": {\n    \"total_train\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:zinc-dataset-train:1\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"name\": \"upbeat_bee_pb76f3l9b1\",\n  \"outputs\": {\n    \"default\": {\n      \"mode\": \"rw_mount\",\n      \"path\": \"azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.upbeat_bee_pb76f3l9b1\",\n      \"type\": \"uri_folder\"\n    },\n    \"preprocessed_zinc\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    },\n    \"preprocessed_zinc_train\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"parameters\": {},\n  \"properties\": {\n    \"ContentSnapshotId\": \"63a1c01d-ce03-4a1f-aa2b-59b29090a1cc\",\n    \"_azureml.ClusterName\": \"overhulsejm4\",\n    \"_azureml.ComputeTargetType\": \"amlcdsi\"\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1,\n    \"properties\": {},\n    \"shm_size\": \"2g\"\n  },\n  \"services\": {\n    \"Studio\": {\n      \"endpoint\": \"https://ml.azure.com/runs/upbeat_bee_pb76f3l9b1?wsid=/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourcegroups/natural-product-gmd-jo/workspaces/naturalproductgmd&tid=14b77578-9773-42d5-8507-251ca2dc2b06\",\n      \"type\": \"Studio\"\n    },\n    \"Tracking\": {\n      \"endpoint\": \"azureml://eastus2.api.azureml.ms/mlflow/v1.0/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd?\",\n      \"type\": \"Tracking\"\n    }\n  },\n  \"status\": \"Starting\",\n  \"tags\": {},\n  \"type\": \"command\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f jobtrain-test-copy.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\n{\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/83349add-937e-444a-8152-e9b4cdfee6b6/versions/1\",\n  \"command\": \"./script-train.sh ${{inputs.total_preprocessed_folder_test}} ${{inputs.total_vocab}} ${{outputs.model_train_test}} ${{outputs.model_train_out}}\",\n  \"compute\": \"azureml:overhulsejm-gpu\",\n  \"creation_context\": {\n    \"created_at\": \"2024-04-05T16:03:49.039837+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\"\n  },\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\n  \"display_name\": \"jtvaecpu_train_test\",\n  \"environment\": \"azureml:gpu_trial_3:2\",\n  \"environment_variables\": {},\n  \"experiment_name\": \"jtvaecpu_train_test\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/jobs/wheat_parang_1k14h29z7b\",\n  \"inputs\": {\n    \"total_preprocessed_folder_test\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:azureml_sleepy_curtain_gjqhl60s93_output_data_preprocessed_coconut_test:1\",\n      \"type\": \"uri_folder\"\n    },\n    \"total_vocab\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:azureml_joyful_kumquat_024yf20lxt_output_data_total_vocab_coconut:1\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"name\": \"wheat_parang_1k14h29z7b\",\n  \"outputs\": {\n    \"default\": {\n      \"mode\": \"rw_mount\",\n      \"path\": \"azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.wheat_parang_1k14h29z7b\",\n      \"type\": \"uri_folder\"\n    },\n    \"model_train_out\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_file\"\n    },\n    \"model_train_test\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    }\n  },\n  \"parameters\": {},\n  \"properties\": {\n    \"ContentSnapshotId\": \"e779d6e0-4816-49b5-a8de-fbb032d4e703\",\n    \"_azureml.ClusterName\": \"overhulsejm-gpu\",\n    \"_azureml.ComputeTargetType\": \"amlctrain\"\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1,\n    \"properties\": {},\n    \"shm_size\": \"2g\"\n  },\n  \"services\": {\n    \"Studio\": {\n      \"endpoint\": \"https://ml.azure.com/runs/wheat_parang_1k14h29z7b?wsid=/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourcegroups/natural-product-gmd-jo/workspaces/naturalproductgmd&tid=14b77578-9773-42d5-8507-251ca2dc2b06\",\n      \"type\": \"Studio\"\n    },\n    \"Tracking\": {\n      \"endpoint\": \"azureml://eastus2.api.azureml.ms/mlflow/v1.0/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd?\",\n      \"type\": \"Tracking\"\n    }\n  },\n  \"status\": \"Starting\",\n  \"tags\": {},\n  \"type\": \"command\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f jobtrain-test-copy-copy.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\n\u001b[32mUploading src (50.15 MBs): 100%|█| 50149256/50149256 [00:04<00:00, 12206293.22it\u001b[0m\n\u001b[39m\n\n{\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/1bac798f-9d3b-4a0a-b8f7-d8463c45d843/versions/1\",\n  \"command\": \"./script-train-coconut.sh ${{inputs.total_preprocessed_folder_test}} ${{inputs.total_vocab}} ${{outputs.model_train_test}} ${{outputs.model_train_out}}\",\n  \"compute\": \"azureml:overhulse-dedicated-4gpu\",\n  \"creation_context\": {\n    \"created_at\": \"2024-05-17T14:29:04.717793+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\"\n  },\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\n  \"display_name\": \"jtvaecpu_train_test\",\n  \"distribution\": {\n    \"process_count_per_instance\": 4,\n    \"type\": \"pytorch\"\n  },\n  \"environment\": \"azureml:gpu_trial_3:2\",\n  \"environment_variables\": {},\n  \"experiment_name\": \"jtvaecpu_train_test\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/jobs/coral_receipt_8frtypjq8v\",\n  \"inputs\": {\n    \"total_preprocessed_folder_test\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:azureml_sleepy_curtain_gjqhl60s93_output_data_preprocessed_coconut_test:1\",\n      \"type\": \"uri_folder\"\n    },\n    \"total_vocab\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:azureml_joyful_kumquat_024yf20lxt_output_data_total_vocab_coconut:1\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"name\": \"coral_receipt_8frtypjq8v\",\n  \"outputs\": {\n    \"default\": {\n      \"mode\": \"rw_mount\",\n      \"path\": \"azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.coral_receipt_8frtypjq8v\",\n      \"type\": \"uri_folder\"\n    },\n    \"model_train_out\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_file\"\n    },\n    \"model_train_test\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    }\n  },\n  \"parameters\": {},\n  \"properties\": {\n    \"ContentSnapshotId\": \"84cde97f-a523-4849-ad02-80782717e20b\",\n    \"_azureml.ClusterName\": \"overhulse-dedicated-4gpu\",\n    \"_azureml.ComputeTargetType\": \"amlctrain\"\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1,\n    \"properties\": {},\n    \"shm_size\": \"2g\"\n  },\n  \"services\": {\n    \"Studio\": {\n      \"endpoint\": \"https://ml.azure.com/runs/coral_receipt_8frtypjq8v?wsid=/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourcegroups/natural-product-gmd-jo/workspaces/naturalproductgmd&tid=14b77578-9773-42d5-8507-251ca2dc2b06\",\n      \"type\": \"Studio\"\n    },\n    \"Tracking\": {\n      \"endpoint\": \"azureml://eastus2.api.azureml.ms/mlflow/v1.0/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd?\",\n      \"type\": \"Tracking\"\n    }\n  },\n  \"status\": \"Starting\",\n  \"tags\": {},\n  \"type\": \"command\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f jobtrain-coconut.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\n\u001b[32mUploading src (50.15 MBs): 100%|█| 50149219/50149219 [00:07<00:00, 6961182.58it/\u001b[0m\n\u001b[39m\n\n{\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/8dd298ca-4a19-4606-89ac-5ccc9ed9e592/versions/1\",\n  \"command\": \"./script-train-coconut.sh ${{inputs.total_preprocessed_folder}} ${{inputs.total_vocab}} ${{outputs.model_train}} ${{outputs.model_train_220K_out}}\",\n  \"compute\": \"azureml:overhulse-dedicated-4\",\n  \"creation_context\": {\n    \"created_at\": \"2024-05-14T19:44:56.568289+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\"\n  },\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\n  \"display_name\": \"jtvaegpu_train_coconut\",\n  \"distribution\": {\n    \"process_count_per_instance\": 4,\n    \"type\": \"pytorch\"\n  },\n  \"environment\": \"azureml:gpu_trial_3:2\",\n  \"environment_variables\": {},\n  \"experiment_name\": \"jtvaegpu_train_coconut\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/jobs/olden_plastic_8t1hyjjqmk\",\n  \"inputs\": {\n    \"total_preprocessed_folder\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:azureml_sharp_pig_6pntgydy4x_output_data_preprocessed_coconut:1\",\n      \"type\": \"uri_folder\"\n    },\n    \"total_vocab\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:azureml_joyful_kumquat_024yf20lxt_output_data_total_vocab_coconut:1\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"name\": \"olden_plastic_8t1hyjjqmk\",\n  \"outputs\": {\n    \"default\": {\n      \"mode\": \"rw_mount\",\n      \"path\": \"azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.olden_plastic_8t1hyjjqmk\",\n      \"type\": \"uri_folder\"\n    },\n    \"model_train\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_folder\"\n    },\n    \"model_train_220K_out\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"parameters\": {},\n  \"properties\": {\n    \"ContentSnapshotId\": \"02ec7236-01ec-49b8-b0fe-e1934da9f8bb\",\n    \"_azureml.ClusterName\": \"overhulse-dedicated-4\",\n    \"_azureml.ComputeTargetType\": \"amlctrain\"\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1,\n    \"properties\": {},\n    \"shm_size\": \"2g\"\n  },\n  \"services\": {\n    \"Studio\": {\n      \"endpoint\": \"https://ml.azure.com/runs/olden_plastic_8t1hyjjqmk?wsid=/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourcegroups/natural-product-gmd-jo/workspaces/naturalproductgmd&tid=14b77578-9773-42d5-8507-251ca2dc2b06\",\n      \"type\": \"Studio\"\n    },\n    \"Tracking\": {\n      \"endpoint\": \"azureml://eastus2.api.azureml.ms/mlflow/v1.0/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd?\",\n      \"type\": \"Tracking\"\n    }\n  },\n  \"status\": \"Starting\",\n  \"tags\": {},\n  \"type\": \"command\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 5,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f job-reconeval-test-copy.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\n{\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/bc9e1964-bc72-4551-984c-e59449a06cd5/versions/1\",\n  \"command\": \"./script-recon-eval.sh ${{inputs.total_train_test}} ${{inputs.total_vocab}} ${{inputs.model_epoch_4}} ${{outputs.recon_test_1500_coconut_out_4}}\",\n  \"compute\": \"azureml:overhulsejm4\",\n  \"creation_context\": {\n    \"created_at\": \"2024-05-06T16:05:23.187292+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\"\n  },\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\n  \"display_name\": \"jtvaecpu_reconeval_test\",\n  \"environment\": \"azureml:CPU_JTVAE:1\",\n  \"environment_variables\": {},\n  \"experiment_name\": \"jtvaecpu_reconeval_test\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/jobs/honest_knee_0f9dgtt4sz\",\n  \"inputs\": {\n    \"model_epoch_4\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:model-epoch-4:1\",\n      \"type\": \"uri_file\"\n    },\n    \"total_train_test\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:coconut_test:1\",\n      \"type\": \"uri_file\"\n    },\n    \"total_vocab\": {\n      \"mode\": \"ro_mount\",\n      \"path\": \"azureml:azureml_joyful_kumquat_024yf20lxt_output_data_total_vocab_coconut:1\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"name\": \"honest_knee_0f9dgtt4sz\",\n  \"outputs\": {\n    \"default\": {\n      \"mode\": \"rw_mount\",\n      \"path\": \"azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.honest_knee_0f9dgtt4sz\",\n      \"type\": \"uri_folder\"\n    },\n    \"recon_test_1500_coconut_out_4\": {\n      \"mode\": \"rw_mount\",\n      \"type\": \"uri_file\"\n    }\n  },\n  \"parameters\": {},\n  \"properties\": {\n    \"ContentSnapshotId\": \"ee51ddd8-b76e-40d1-9f40-a678d405fd99\",\n    \"_azureml.ClusterName\": \"overhulsejm4\",\n    \"_azureml.ComputeTargetType\": \"amlcdsi\"\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1,\n    \"properties\": {},\n    \"shm_size\": \"2g\"\n  },\n  \"services\": {\n    \"Studio\": {\n      \"endpoint\": \"https://ml.azure.com/runs/honest_knee_0f9dgtt4sz?wsid=/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourcegroups/natural-product-gmd-jo/workspaces/naturalproductgmd&tid=14b77578-9773-42d5-8507-251ca2dc2b06\",\n      \"type\": \"Studio\"\n    },\n    \"Tracking\": {\n      \"endpoint\": \"azureml://eastus2.api.azureml.ms/mlflow/v1.0/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd?\",\n      \"type\": \"Tracking\"\n    }\n  },\n  \"status\": \"Starting\",\n  \"tags\": {},\n  \"type\": \"command\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 2,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml component create -f job-vocab-component.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "\u001b[32mUploading src (49.98 MBs): 100%|█| 49982206/49982206 [00:04<00:00, 10578949.49it\u001b[0m\n\u001b[39m\n\n{\n  \"$schema\": \"https://azuremlschemas.azureedge.net/latest/commandJob.schema.json\",\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/6d35f13c-1d8a-4889-8d76-547e1531e91a/versions/1\",\n  \"command\": \"./script-vocab.sh ${{inputs.total_vocab}} ${{outputs.total_vocab_paper}}\",\n  \"creation_context\": {\n    \"created_at\": \"2024-05-14T01:22:40.842071+00:00\",\n    \"created_by\": \"Overhulse\",\n    \"created_by_type\": \"User\",\n    \"last_modified_at\": \"2024-05-14T01:22:40.941932+00:00\",\n    \"last_modified_by\": \"Overhulse\",\n    \"last_modified_by_type\": \"User\"\n  },\n  \"description\": \"Generate vocabulary for JTVAE training.\",\n  \"display_name\": \"jtvaecpu_vocab_component\",\n  \"environment\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/environments/CPU_JTVAE/versions/1\",\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/components/vocabulary_generation/versions/1\",\n  \"inputs\": {\n    \"total_vocab\": {\n      \"optional\": false,\n      \"type\": \"uri_file\"\n    }\n  },\n  \"is_deterministic\": true,\n  \"name\": \"vocabulary_generation\",\n  \"outputs\": {\n    \"total_vocab_paper\": {\n      \"type\": \"uri_file\"\n    }\n  },\n  \"resourceGroup\": \"natural-product-gmd-jo\",\n  \"resources\": {\n    \"instance_count\": 1\n  },\n  \"type\": \"command\",\n  \"version\": \"1\"\n}\n\u001b[0m"
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml component create -f jobpreprocess-component.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "{\r\n  \"$schema\": \"https://azuremlschemas.azureedge.net/latest/commandJob.schema.json\",\r\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/6d35f13c-1d8a-4889-8d76-547e1531e91a/versions/1\",\r\n  \"command\": \"./script-preprocess.sh ${{inputs.total_train_set}} ${{outputs.preprocessed_train_set_details}} ${{outputs.preprocessed_train_set_pkl}}\",\r\n  \"creation_context\": {\r\n    \"created_at\": \"2024-05-14T01:35:59.743376+00:00\",\r\n    \"created_by\": \"Overhulse\",\r\n    \"created_by_type\": \"User\",\r\n    \"last_modified_at\": \"2024-05-14T01:35:59.798742+00:00\",\r\n    \"last_modified_by\": \"Overhulse\",\r\n    \"last_modified_by_type\": \"User\"\r\n  },\r\n  \"description\": \"Preprocess the dataset.\",\r\n  \"display_name\": \"jtvaecpu_preprocess\",\r\n  \"environment\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/environments/CPU_JTVAE/versions/1\",\r\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/components/preprocess/versions/1\",\r\n  \"inputs\": {\r\n    \"total_train_set\": {\r\n      \"optional\": false,\r\n      \"type\": \"uri_file\"\r\n    }\r\n  },\r\n  \"is_deterministic\": true,\r\n  \"name\": \"preprocess\",\r\n  \"outputs\": {\r\n    \"preprocessed_train_set_details\": {\r\n      \"type\": \"uri_file\"\r\n    },\r\n    \"preprocessed_train_set_pkl\": {\r\n      \"type\": \"uri_folder\"\r\n    }\r\n  },\r\n  \"resourceGroup\": \"natural-product-gmd-jo\",\r\n  \"resources\": {\r\n    \"instance_count\": 1\r\n  },\r\n  \"type\": \"command\",\r\n  \"version\": \"1\"\r\n}\r\n\u001b[0m"
+        }
+      ],
+      "execution_count": 2,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml component create -f jobtrain-component.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "{\r\n  \"$schema\": \"https://azuremlschemas.azureedge.net/latest/commandJob.schema.json\",\r\n  \"code\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/codes/6d35f13c-1d8a-4889-8d76-547e1531e91a/versions/1\",\r\n  \"command\": \"./script-train-coconut.sh ${{inputs.total_preprocessed_folder}} ${{inputs.total_vocab}} ${{outputs.model_train}} ${{outputs.model_train_out}}\",\r\n  \"creation_context\": {\r\n    \"created_at\": \"2024-05-14T04:45:36.185694+00:00\",\r\n    \"created_by\": \"Overhulse\",\r\n    \"created_by_type\": \"User\",\r\n    \"last_modified_at\": \"2024-05-14T04:45:36.278545+00:00\",\r\n    \"last_modified_by\": \"Overhulse\",\r\n    \"last_modified_by_type\": \"User\"\r\n  },\r\n  \"description\": \"Train a Machine Learning model using a workspace Data asset.\",\r\n  \"display_name\": \"jtvaegpu_train\",\r\n  \"distribution\": {\r\n    \"process_count_per_instance\": 4,\r\n    \"type\": \"pytorch\"\r\n  },\r\n  \"environment\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/environments/gpu_trial_3/versions/2\",\r\n  \"id\": \"azureml:/subscriptions/c9b7bb83-3d11-4f71-9b1c-a744154ca8f9/resourceGroups/natural-product-gmd-jo/providers/Microsoft.MachineLearningServices/workspaces/naturalproductgmd/components/jtvae_train/versions/1\",\r\n  \"inputs\": {\r\n    \"total_preprocessed_folder\": {\r\n      \"optional\": false,\r\n      \"type\": \"uri_folder\"\r\n    },\r\n    \"total_vocab\": {\r\n      \"optional\": false,\r\n      \"type\": \"uri_file\"\r\n    }\r\n  },\r\n  \"is_deterministic\": true,\r\n  \"name\": \"jtvae_train\",\r\n  \"outputs\": {\r\n    \"model_train\": {\r\n      \"type\": \"uri_folder\"\r\n    },\r\n    \"model_train_out\": {\r\n      \"type\": \"uri_file\"\r\n    }\r\n  },\r\n  \"resourceGroup\": \"natural-product-gmd-jo\",\r\n  \"resources\": {\r\n    \"instance_count\": 1\r\n  },\r\n  \"type\": \"command\",\r\n  \"version\": \"1\"\r\n}\r\n\u001b[0m"
+        }
+      ],
+      "execution_count": 2,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!az ml job create -f qmugs-ampl-sleep.yaml"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\r\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\r\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\r\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\r\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\r\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\r\n"
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python38-azureml",
+      "language": "python",
+      "display_name": "Python 3.8 - AzureML"
+    },
+    "language_info": {
+      "name": "python",
+      "version": "3.10.11",
+      "mimetype": "text/x-python",
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "pygments_lexer": "ipython3",
+      "nbconvert_exporter": "python",
+      "file_extension": ".py"
+    },
+    "microsoft": {
+      "ms_spell_check": {
+        "ms_spell_check_language": "en"
+      }
+    },
+    "nteract": {
+      "version": "nteract-front-end@1.0.0"
+    },
+    "kernel_info": {
+      "name": "python38-azureml"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 2
+}

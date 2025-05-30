@@ -1,0 +1,33 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: AMPL
+command: >-
+  ./train_model.sh
+  ${{inputs.curated_qmug}} ${{inputs.splitting_file}} ${{outputs.odir}} ${{outputs.best_model_dir}}
+inputs:
+    curated_qmug:
+    path: >-
+      azureml:qmugs_curated_dataset:1
+    mode: ro_mount
+    type: uri_file
+  splitting_file:
+    path: >-
+      azureml:azureml_sincere_lychee_zzbpz28365_output_data_odir:1
+    mode: ro_mount
+    type: uri_file
+outputs:
+  odir:
+    mode: rw_mount
+    type: uri_folder
+  best_model_dir:
+    mode: rw_mount
+    type: uri_folder
+environment: azureml:ampl:6
+compute: azureml:overhulse-1-gpu
+distribution:
+  type: pytorch 
+  process_count_per_instance: 1
+resources:
+  instance_count: 1
+display_name: qmug-rf-ecfp-scaffold-split
+experiment_name: qmug-rf-ecfp-scaffold-split
+description: Train a Machine Learning model using a workspace Data asset.
