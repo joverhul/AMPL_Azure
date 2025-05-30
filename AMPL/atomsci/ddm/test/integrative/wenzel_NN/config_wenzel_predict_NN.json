@@ -1,0 +1,15 @@
+{
+    "comment": "Input file",
+    "comment": "----------------------------------------",
+    "id_col": "compound_id",
+    "smiles_col": "rdkit_smiles",
+    "response_cols": "VALUE_NUM_mean",
+
+    "comment": "Transformer",
+    "comment": "----------------------------------------",
+    "transformer_key": "",
+
+    "comment": "Results",
+    "comment": "----------------------------------------",
+    "result_dir": "predict"
+}
